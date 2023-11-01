@@ -1,12 +1,3 @@
-/*
- * Tarefa 01 - Grafo - Listas de Adjacencia
- *
- * GEN254 - Grafos - 2023/2
- *
- * Nome: João Victor da Silva
- * Matricula: 2211100072
-*/
-
 #include "Aresta.h"
 #include <string>
 

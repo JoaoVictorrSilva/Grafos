@@ -1,12 +1,3 @@
-/*
- * Tarefa 02 - Potenciais Comparsas
- *
- * GEN254 - Grafos - 2023/2
- *
- * Nome:      João Victor da Silva
- * Matricula: 2211100072
- */
-
 #include <iostream>
 #include "queue"
 #include "Grafo.h"
@@ -76,37 +67,5 @@ bool Grafo::busca_larg(int v){
                 }
     }
 
-    for(int i = 0; i < vertices_number_; i++){
-        if(marcado[i] != 1){
-            if(vetor_isolados[i] == 1){
-                continue;
-            }
-        }
-    }
-
     return true;
 }
-
-/*bool Grafo::graus(){
-
-    std::vector<int> vetor_graus(vertices_number_, 0);
-    std::vector<int> vetor_isolados(vertices_number_, 0);
-
-    for(int i = 0; i < vertices_number_; i++){
-        for(int j = 0; j < vertices_number_; j++){
-            if(adj[i][j] != 0)
-                vetor_graus[i] += 1;
-        }
-    }
-
-    for(int i = 0; i < vertices_number_; i++){
-        if(vetor_graus[i] == 0){
-            vetor_isolados[i] = 1;
-        }
-        else if(vetor_graus[i] % 2 != 0){
-            return false;
-        }
-    }
-
-    return true;
-}*/
