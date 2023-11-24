@@ -16,15 +16,13 @@
 class Digrafo {
 private:
     std::vector<std::vector<int>> adj;
-    std::vector <int> pai;
-    std::vector <int> dp;
     int regioes; // --> número de vértices
     int vida;
 public:
     Digrafo(int v);
     void insert_edge(Aresta S, int vida_cano);
-    void max_vidas(Aresta S, int max);
-    bool Bellman_Ford(int s);
+    void max_vidas(int v);
+    bool Bellman_Ford(int s, int dp[]);
 };
 
 #endif

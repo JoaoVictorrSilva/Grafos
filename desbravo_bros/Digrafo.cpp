@@ -9,20 +9,19 @@
 
 #include <iostream>
 #include "Digrafo.h"
+#include <limits.h>
+#include <climits>  
+
+using namespace std;
 
 Digrafo::Digrafo(int r){
   regioes = r;
   vida = 0;
 
   adj.resize(r);
-  pai.resize(r);
-  dp.resize(r);
 
-  for(int i = 0; i < r; i++){
-    adj[i].resize(r, 0);
-    dp[i] = 1000; // 1000 --> "infinito"
-    pai[i] = -1;
-  }
+  for(int i = 0; i < r; i++)
+    adj[i].resize(r, 0); // 100 equivalente ao 0 pois pesos das arestas podem ser 0;
 }
 
 void Digrafo::insert_edge(Aresta S, int vida_cano){
@@ -32,25 +31,37 @@ void Digrafo::insert_edge(Aresta S, int vida_cano){
   adj[S.v1][S.v2] = vida_cano;
 }
 
-void Digrafo::max_vidas(Aresta S, int maximo){
-  if((vida + adj[S.v1][S.v2]) > maximo)
-    return;
+void Digrafo::max_vidas(int s){
+  int dp[regioes];
+
+  for(int i = 0; i < regioes; i++)
+    dp[i] = INT_MIN; 
+
+  dp[s] = 0;
+
+  bool aux = Bellman_Ford(s, dp);
+
+  int max = dp[0];
+  for(int i = 1; i < regioes; i++) 
+    if(dp[i] > max) 
+      max = dp[i];
+  
+  if(aux)
+    cout << max;
   else
-    vida += adj[S.v1][S.v2];
+    cout << "ilimitada";
 }
 
-bool Digrafo::Bellman_Ford(int s){
-  for(int i = 0; i < regioes; i++)
-    for(int j = 0; j < regioes; j++)
-      if(dp[i] != 1000 && dp[j] > dp[i] + adj[i][j]){
-        dp[j] = dp[i] + adj[i][j];
-        pai[j] = i;
-      }
-  
-  for(int i = 0; i < regioes; i++)
-    for(int j = 0; j < regioes; j++)
-      if(dp[i] != 1000 && dp[j] > dp[i] + adj[i][j])
-        return false;
+bool Digrafo::Bellman_Ford(int s, int dp[]){
+  for(int u = 0; u < regioes; u++)
+    for(int v = 0; v < regioes; v++)
+      if(adj[u][v] != 0 && dp[u] != INT_MIN && dp[v] < dp[u] + adj[u][v])
+        dp[v] = dp[u] + adj[u][v];
+
+  for(int u = 0; u < regioes; u++)
+    for(int v = 0; v < regioes; v++)
+      if(adj[u][v] != 0 && dp[u] != INT_MIN && dp[v] < dp[u] + adj[u][v])
+        return false; 
 
   return true;
 }
