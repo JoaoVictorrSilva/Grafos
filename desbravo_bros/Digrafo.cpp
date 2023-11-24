@@ -31,8 +31,7 @@ void Digrafo::insert_edge(Aresta S, int vida_cano){
   adj[S.v1][S.v2] = vida_cano;
 }
 
-void Digrafo::max_vidas(int s){
-  int dp[regioes];
+bool Digrafo::max_vidas(int s, int dp[]){
 
   for(int i = 0; i < regioes; i++)
     dp[i] = INT_MIN; 
@@ -40,16 +39,7 @@ void Digrafo::max_vidas(int s){
   dp[s] = 0;
 
   bool aux = Bellman_Ford(s, dp);
-
-  int max = dp[0];
-  for(int i = 1; i < regioes; i++) 
-    if(dp[i] > max) 
-      max = dp[i];
-  
-  if(aux)
-    cout << max;
-  else
-    cout << "ilimitada";
+  return aux;
 }
 
 bool Digrafo::Bellman_Ford(int s, int dp[]){

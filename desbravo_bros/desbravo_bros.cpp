@@ -32,8 +32,20 @@ int main() {
 
     for (int i = 0; i < O; i++){
         int v = 0;
+        int dp[R];
         cin >> v;
-        digrafo.max_vidas(v);
+        
+        bool aux = digrafo.max_vidas(v, dp);
+
+        int max = dp[0];
+        for(int j = 1; j < R; j++) 
+            if(dp[j] > max) 
+                max = dp[j];
+  
+        if(aux)
+            cout << v << ":" << " " <<  max;
+        else
+            cout << v << ":" << " " << "ilimitada";
     }
 
     return 0;

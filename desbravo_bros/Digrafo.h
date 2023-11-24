@@ -21,7 +21,7 @@ private:
 public:
     Digrafo(int v);
     void insert_edge(Aresta S, int vida_cano);
-    void max_vidas(int v);
+    bool max_vidas(int v, int dp[]);
     bool Bellman_Ford(int s, int dp[]);
 };
 
